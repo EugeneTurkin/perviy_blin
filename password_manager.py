@@ -7,8 +7,8 @@ users_dir = Path(__file__).parent / "users"
 
 
 class User():
-    def __init__(self, email, password):
-        self.email = email
+    def __init__(self, login, password):
+        self.login = login
         self.password = password
 
 
@@ -26,22 +26,22 @@ def logging_in():
 
 
 def add_password(user):
-    user_email = input('Enter your e-mail: ')
+    user_login = input('Enter your e-mail: ')
     user_password = input('Enter your password: ')
 
-    user_data_file = users_dir / f"{user.email},{user.password}.txt"
+    user_data_file = users_dir / f"{user.login},{user.password}.txt"
     with user_data_file.open('a') as f:
-        f.write(f'{user_email},{rot13(user_password)}\n')
+        f.write(f'{user_login},{rot13(user_password)}\n')
     print('Password is saved successfully')
 
 
 def retrieve_password(user):
-    user_email = input('Enter your e-mail: ')
+    user_login = input('Enter your e-mail: ')
 
-    user_data_file = users_dir / f"{user.email},{user.password}.txt"
+    user_data_file = users_dir / f"{user.login},{user.password}.txt"
     with user_data_file.open('r') as f:
         for line in f:
-            if user_email in line:
+            if user_login in line:
                 _, _, user_password = line.partition(',')
                 print(f'Your password is: {rot13(user_password)}')
                 break
