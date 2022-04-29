@@ -16,9 +16,3 @@ if user_input == '1':
     password_manager.add_password(acc_info)
 elif user_input == '2':
     password_manager.retrieve_password(acc_info)
-
-
-# файлы должны браться *относительно* места, где они лежат?
-# хранение информации в БД
-# слон сдавайся\
-
