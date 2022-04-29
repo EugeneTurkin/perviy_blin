@@ -25,20 +25,20 @@ def logging_in():
     return User(login, password)
 
 
-def add_password(acc_info):
+def add_password(user):
     user_email = input('Enter your e-mail: ')
     user_password = input('Enter your password: ')
 
-    user_data_file = users_dir / f"{acc_info.email},{acc_info.password}.txt"
+    user_data_file = users_dir / f"{user.email},{user.password}.txt"
     with user_data_file.open('a') as f:
         f.write(f'{user_email},{rot13(user_password)}\n')
     print('Password is saved successfully')
 
 
-def retrieve_password(acc_info):
+def retrieve_password(user):
     user_email = input('Enter your e-mail: ')
 
-    user_data_file = users_dir / f"{acc_info.email},{acc_info.password}.txt"
+    user_data_file = users_dir / f"{user.email},{user.password}.txt"
     with user_data_file.open('r') as f:
         for line in f:
             if user_email in line:
