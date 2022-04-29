@@ -2,27 +2,37 @@ import os
 import password_manager
 
 
+class User():
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+
 def logging_in():
     login = input('Enter your login: ')
     password = input('Enter your password: ')
-    return f'{login},{password}'
+    os.chdir(os.path.dirname(os.path.abspath(__file__)) + '\\users')
+    if '{},{}.txt'.format(login, password) not in os.listdir(os.getcwd()):
+        print('This account does not exist. A new one was created.')
+    with open('{},{}.txt'.format(login, password), 'a'):
+        pass
+    return User(login, password)
 
 
-if os.path.exists(os.getcwd() + '\\users'):
+
+if not os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '\\users'):
+    print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
+    os.makedirs(os.path.dirname(os.path.abspath(__file__)) + '\\users')
+    acc_info = logging_in()
+else:
     print('Welcome back!')
     acc_info = logging_in()
-    if acc_info not in os.listdir(os.getcwd() + '\\users'):
-        input('This account does not exist. Creating a new one.')
-        os.makedirs(f'users\\{acc_info}')
-else:
-    print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
-    acc_info = logging_in()
-    os.makedirs(f'users\\{acc_info}')
 
-os.chdir(f'users\\{acc_info}')
+
 password_manager.manager(acc_info)
 
 
 # файлы должны браться *относительно* места, где они лежат?
 # хранение информации в БД
+# слон сдавайся\
 
