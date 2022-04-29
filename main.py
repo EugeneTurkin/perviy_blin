@@ -11,7 +11,7 @@ class User():
 def logging_in():
     login = input('Enter your login: ')
     password = input('Enter your password: ')
-    os.chdir(os.path.dirname(os.path.abspath(__file__)) + '\\users')
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users'))
     if '{},{}.txt'.format(login, password) not in os.listdir(os.getcwd()):
         print('This account does not exist. A new one was created.')
     with open('{},{}.txt'.format(login, password), 'a'):
@@ -20,9 +20,9 @@ def logging_in():
 
 
 
-if not os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '\\users'):
+if not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users')):
     print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
-    os.makedirs(os.path.dirname(os.path.abspath(__file__)) + '\\users')
+    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users'))
     acc_info = logging_in()
 else:
     print('Welcome back!')
