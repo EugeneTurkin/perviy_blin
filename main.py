@@ -1,10 +1,14 @@
-import os
 import password_manager
 
+from pathlib import Path
 
-if not os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users')):
+
+users_dir = Path(__file__).parent / "users"
+
+
+if not users_dir.exists():
+    users_dir.mkdir()
     print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
-    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users'))
     acc_info = password_manager.logging_in()
 else:
     print('Welcome back!')
