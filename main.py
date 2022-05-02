@@ -63,37 +63,10 @@ def id_tech():
     return curs.execute("SELECT * FROM id_tech").fetchone()[0]
 
 
-if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users')):
-    print('Welcome back!')
+conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
+curs = conn.cursor()
 
-    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
-    curs = conn.cursor()
-
-    acc_info = logging_in()
-else:
-    print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
-
-    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users'))
-    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
-    curs = conn.cursor()
-
-    curs.execute("""CREATE TABLE accounts (
-                    id          INTEGER     NOT_NULL,
-                    login       TEXT        NOT_NULL,
-                    password    TEXT        NOT_NULL
-                    )""")
-
-    curs.execute("""CREATE TABLE acc_data (
-                    owner_id    INTEGER     NOT_NULL,
-                    login       TEXT        NOT_NULL,
-                    password    TEXT        NOT_NULL
-                    )""")
-    curs.execute("CREATE VIEW id_tech AS SELECT (COUNT(*) + 1) FROM accounts")
-    conn.commit()
-
-    acc_info = logging_in()
-
-
+acc_info = logging_in()
 user_input = input('Press "1" to add password. Press "2" to retrieve your password: ')
 if user_input == '1':
     add_password(acc_info)
