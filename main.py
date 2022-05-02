@@ -52,15 +52,12 @@ def logging_in():
     if accounts == []:
         print('This account does not exist. Creating a new one.')
         curs.execute(
-            "INSERT INTO accounts (id, login, password) VALUES (:id, :login, :password)",
-            {'id': id_tech(), 'login': login, 'password': password},
+            "INSERT INTO accounts (login, password) VALUES (:login, :password)",
+            {'login': login, 'password': password},
         )
         conn.commit()
 
     return User(login, password)
-
-def id_tech():
-    return curs.execute("SELECT * FROM id_tech").fetchone()[0]
 
 
 conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
