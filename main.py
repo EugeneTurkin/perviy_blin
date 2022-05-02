@@ -63,18 +63,18 @@ def id_tech():
     return curs.execute("SELECT * FROM id_tech").fetchone()[0]
 
 
-if os.path.exists(os.path.dirname(os.path.abspath(__file__)) + '\\users'):
+if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users')):
     print('Welcome back!')
 
-    conn = sqlite3.connect(os.path.dirname(os.path.abspath(__file__)) + '\\users\\database.db')
+    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
     curs = conn.cursor()
 
     acc_info = logging_in()
 else:
     print("Welcome to Gill Bates' Password Manager! Please, create an account by following the instructions.")
 
-    os.makedirs(os.path.dirname(os.path.abspath(__file__)) + '\\users')
-    conn = sqlite3.connect(os.path.dirname(os.path.abspath(__file__)) + '\\users\\database.db')
+    os.makedirs(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users'))
+    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users', 'database.db'))
     curs = conn.cursor()
 
     curs.execute("""CREATE TABLE accounts (
